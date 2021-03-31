@@ -85,8 +85,23 @@ def get_book_summary(book_url):
     Make sure to strip() any newlines from the book title and number of pages.
     """
 
-    pass
+    #pass
 
+    resp = requests.get(book_url)
+    soup = BeautifulSoup(resp.content, 'html.parser')
+
+    title = soup.find('h1', id = 'bookTitle')
+    author = soup.find('a', class_ = 'authorName')
+    pages = soup.find('span', itemprop = 'numberOfPages')
+
+    nums = '0123456789'
+    num = ''
+    for char in pages.text.strip():
+        if char in nums:
+            num += char
+    int_num = int(num)
+
+    return (title.text.strip(), author.text.strip(), int_num)
 
 def summarize_best_books(filepath):
     """
@@ -99,7 +114,39 @@ def summarize_best_books(filepath):
     ("Fiction", "The Testaments (The Handmaid's Tale, #2)", "https://www.goodreads.com/choiceawards/best-fiction-books-2020") 
     to your list of tuples.
     """
-    pass
+    #pass
+    with open(filepath) as f:
+        content = f.read()
+    #if page.ok:
+       # soup = BeautifulSoup(page.content,'html.parser')
+    soup = BeautifulSoup(content,'html.parser')
+
+    tags = soup.find('div', {'class': 'clearFix'})
+    
+    x = tags.find('div', {'category': 'clearFix'})
+
+    for item in x:
+
+        genre = item.find('h4', class_ = 'category__copy')
+        title = item.find('div', {'class': 'category__winerImageContainer'})
+        url = item.find('a', item[href]) #how do you extract this 
+    tup = (genre, title, url)
+    return tup 
+
+    
+
+
+
+
+   tags = soup.find_all('table', {'class': 'data-table'})[2]
+    #print(tags)
+    x = tags.find_all('td', {'class':'cell-name'})
+    #print(x)
+    for item in x:
+        k = item.find('a', {'class': 'ent-name'}).text.strip()
+        lst.append(k)
+    print(lst)
+    return lst
 
 
 def write_csv(data, filename):
