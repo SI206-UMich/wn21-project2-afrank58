@@ -222,37 +222,73 @@ class TestCases(unittest.TestCase):
 
     def test_get_book_summary(self):
         # create a local variable – summaries – a list containing the results from get_book_summary()
+        summaries = 
         # for each URL in TestCases.search_urls (should be a list of tuples)
+        for urls in TestCases.search_urls:
+            self.assertTrue(type(urls), list)
+            for url in urls:
+                self.assertTrue(type(url), tuple)
+
+            
 
         # check that the number of book summaries is correct (10)
+        self.assertEqual(len(summaries), 10)
 
             # check that each item in the list is a tuple
+            for summary in summaries:
+                for item in summary:
+                    self.assertEqual(type(item), tuple)
 
             # check that each tuple has 3 elements
+            for summary in summaries:
+                for item in summary:
+                    if type(item) == tuple:
+                        self.assertEqual(len(item), 3)
 
             # check that the first two elements in the tuple are string
+            for summary in summaries:
+                for item in summary:
+                    if type(item) == tuple:
+                        self.assertTrue(type(item)[0:2], str)
 
             # check that the third element in the tuple, i.e. pages is an int
+            for summary in summaries:
+                for item in summary:
+                    if type(item) == tuple:
+                        self.assertTrue(type(item)[2], int)
 
             # check that the first book in the search has 337 pages
 
 
     def test_summarize_best_books(self):
         # call summarize_best_books and save it to a variable
+        test_best_books = summarize_best_books()
 
         # check that we have the right number of best books (20)
+        self.assertEqual(len(test_best_books), 20)
 
             # assert each item in the list of best books is a tuple
+            for item in test_best_books:
+                self.assertTrue(type(item), tuple)
 
             # check that each tuple has a length of 3
+            for item in test_best_books:
+                if type(item) == tuple:
+                    self.assertEqual(len(item), 3)
 
         # check that the first tuple is made up of the following 3 strings:'Fiction', "The Midnight Library", 'https://www.goodreads.com/choiceawards/best-fiction-books-2020'
+        for item in test_best_books:
+            self.assertEqual(item[1], 'Fiction', "The Midnight Library", 'https://www.goodreads.com/choiceawards/best-fiction-books-2020')
 
         # check that the last tuple is made up of the following 3 strings: 'Picture Books', 'A Beautiful Day in the Neighborhood: The Poetry of Mister Rogers', 'https://www.goodreads.com/choiceawards/best-picture-books-2020'
-
+        for item in test_best_books:
+            self.assertEqual(item[-1],'Picture Books', 'A Beautiful Day in the Neighborhood: The Poetry of Mister Rogers', 'https://www.goodreads.com/choiceawards/best-picture-books-2020')
+            self.assertEqual(item[19],'Picture Books', 'A Beautiful Day in the Neighborhood: The Poetry of Mister Rogers', 'https://www.goodreads.com/choiceawards/best-picture-books-2020')
 
     def test_write_csv(self):
         # call get_titles_from_search_results on search_results.htm and save the result to a variable
+
+        x = get_titles_from_search_results(search_results.htm)
 
         # call write csv on the variable you saved and 'test.csv'
 
