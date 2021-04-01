@@ -293,7 +293,7 @@ class TestCases(unittest.TestCase):
         csv_reader = csv.reader(test_file)
         for line in csv_reader:
             csv_lines.append(line)
-
+        test_file.close()
         # check that there are 21 lines in the csv
         self.assertEqual(len(csv_lines), 21)
 
